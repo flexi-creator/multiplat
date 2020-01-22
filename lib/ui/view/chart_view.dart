@@ -1,5 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:multiplat/core/util/platform_util.dart';
 import 'package:multiplat/core/viewmodel/chart_viewmodel.dart';
 import 'package:multiplat/ui/view/base_view.dart';
 
@@ -25,19 +27,29 @@ class _ChartViewState extends State<ChartView> {
     );
   }
 
-  Scaffold _buildContent(ChartViewModel model) {
+  Widget _buildContent(ChartViewModel model) {
     final dataItem = model.getSelectedItem();
     final title = dataItem != null ? 'Contributions for ${dataItem.title}' : '';
+    if (isCupertino()) {
+      return CupertinoPageScaffold(
+        navigationBar: combinedView ? null : CupertinoNavigationBar(middle: Text(title)),
+        child: _safeArea(title, model),
+      );
+    }
     return Scaffold(
       appBar: combinedView ? null : AppBar(title: Text(title)),
-      body: SafeArea(
-        left: !combinedView,
-        right: true,
-        top: !combinedView,
-        bottom: true,
-        child: LayoutBuilder(
-          builder: (context, constraints) => _chart(title, constraints, model),
-        ),
+      body: _safeArea(title, model),
+    );
+  }
+
+  SafeArea _safeArea(String title, ChartViewModel model) {
+    return SafeArea(
+      left: !combinedView,
+      right: true,
+      top: !combinedView,
+      bottom: true,
+      child: LayoutBuilder(
+        builder: (context, constraints) => _chart(title, constraints, model),
       ),
     );
   }
@@ -55,7 +67,7 @@ class _ChartViewState extends State<ChartView> {
                 )
               : Container(),
           SizedBox(
-              height: constraints.constrainHeight() - 76,
+              height: constraints.constrainHeight() - 80,
               width: constraints.constrainWidth(),
               child: CombinedDataItemsChart(model.getChartData())),
         ],

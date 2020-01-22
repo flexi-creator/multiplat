@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multiplat/core/enum/viewstate.dart';
+import 'package:multiplat/core/util/platform_util.dart';
 import 'package:multiplat/core/viewmodel/items_viewmodel.dart';
 import 'package:multiplat/ui/view/base_view.dart';
 
@@ -25,10 +26,15 @@ class _ItemsViewState extends State<ItemsView> {
   Widget build(BuildContext context) {
     return BaseView<ItemsViewModel>(
       onModelReady: (model) => model.getData(),
-      builder: (context, model, child) => Scaffold(
-        appBar: combinedView ? null : AppBar(title: Text('Top contributors')),
-        body: _listItems(model),
-      ),
+      builder: (context, model, child) => isCupertino()
+          ? CupertinoPageScaffold(
+              navigationBar: combinedView ? null : CupertinoNavigationBar(middle: Text('Top contributors')),
+              child: _listItems(model),
+            )
+          : Scaffold(
+              appBar: combinedView ? null : AppBar(title: Text('Top contributors')),
+              body: _listItems(model),
+            ),
     );
   }
 
@@ -59,8 +65,10 @@ class _ItemsViewState extends State<ItemsView> {
         ),
         model.state == ViewState.Busy
             ? Center(
-                child: SizedBox(height: 50, width: 50, child: !kIsWeb && (Platform.isIOS || Platform.isMacOS) ?
-                    CupertinoActivityIndicator(): CircularProgressIndicator()),
+                child: SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: isCupertino() ? CupertinoActivityIndicator() : CircularProgressIndicator()),
               )
             : Container(),
       ]),

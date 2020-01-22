@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:multiplat/core/model/data_item.dart';
+import 'package:multiplat/core/util/platform_util.dart';
 import 'package:multiplat/core/viewmodel/item_detail_viewmodel.dart';
 import 'package:multiplat/ui/view/base_view.dart';
 
@@ -25,8 +27,18 @@ class _ItemDetailViewState extends State<ItemDetailView> {
     );
   }
 
-  Scaffold _buildContent(ItemDetailViewModel model) {
+  Widget _buildContent(ItemDetailViewModel model) {
     final dataItem = model.getSelectedItem();
+    if (isCupertino()) {
+      return CupertinoPageScaffold(
+        navigationBar: combinedView
+            ? null
+            : CupertinoNavigationBar(
+                middle: Text(dataItem.title),
+              ),
+        child: _body(dataItem),
+      );
+    }
     return Scaffold(
       appBar: combinedView
           ? null
