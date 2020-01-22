@@ -33,6 +33,6 @@ class Router {
     if (isCupertino()) {
       return CupertinoPageRoute(builder: (_) => builderCallback());
     }
-    return MaterialPageRoute(builder: (_) => builderCallback(), fullscreenDialog: true);
+    return MaterialPageRoute(builder: (_) => builderCallback());
   }
 }
