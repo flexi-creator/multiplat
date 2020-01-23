@@ -58,11 +58,14 @@ class _ItemDetailViewState extends State<ItemDetailView> {
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
             child: ListView(children: [
               Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                CircleAvatar(
-                  backgroundColor: Color(0x1f000000),
-                  radius: 75,
-                  backgroundImage: NetworkImage(
-                    dataItem.imageUrl,
+                Hero(
+                  tag: 'heroImage${dataItem.title}',
+                  child: CircleAvatar(
+                    backgroundColor: Color(0x1f000000),
+                    radius: 75,
+                    backgroundImage: NetworkImage(
+                      dataItem.imageUrl,
+                    ),
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(left: 10)),

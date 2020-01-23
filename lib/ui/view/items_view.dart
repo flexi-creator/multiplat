@@ -89,11 +89,14 @@ class _ItemsViewState extends State<ItemsView> {
             padding: const EdgeInsets.all(20),
             child: Row(
               children: <Widget>[
-                CircleAvatar(
-                  radius: 35,
-                  backgroundColor: Color(0x1f000000),
-                  backgroundImage: NetworkImage(
-                    item.imageUrl,
+                Hero(
+                  tag: 'heroImage${item.title}',
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundColor: Color(0x1f000000),
+                    backgroundImage: NetworkImage(
+                      item.imageUrl,
+                    ),
                   ),
                 ),
                 Padding(padding: EdgeInsets.only(left: 10)),
