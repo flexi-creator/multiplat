@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,14 +48,16 @@ class MultiplatSharedPrefs {
     return 0;
   }
 
-  _writeFile(int selectedIndex) async {
+  Future<bool> _writeFile(int selectedIndex) async {
     try {
       File(_getFullPath()).writeAsStringSync('$selectedIndex');
     } catch (e, s) {
       print('Error occurred trying to write to $_prefsFile: $e');
       print('$s');
+      return false;
       // swallow error
     }
+    return true;
   }
 
   String _getFullPath() {

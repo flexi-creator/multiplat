@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=multiplat
-Comment=Multi platform example
-Exec=/home/osboxes/multiplat/build/linux/debug/multiplat
-Icon=/home/osboxes/multiplat/windows/resources/app_icon.ico
-StartupNotify=true
-Terminal=false
-Type=Application
