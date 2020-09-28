@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.blueGrey,
         ),
         initialRoute: 'combined',
-        onGenerateRoute: Router.generateRoute,
+        onGenerateRoute: MultiplatRouter.generateRoute,
       );
     }
     return MaterialApp(
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
       ),
       initialRoute: 'combined',
-      onGenerateRoute: Router.generateRoute,
+      onGenerateRoute: MultiplatRouter.generateRoute,
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MultiplatSharedPrefs {
-  static final bool _useFileSystem = !kIsWeb && (Platform.isWindows || Platform.isLinux);
+  static final bool _useFileSystem = !kIsWeb && (Platform.isWindows);
 
   static const String _selected_index_key = "selectedIndex";
   static const _prefsFile = 'multiplat_sharedprefs.txt';
