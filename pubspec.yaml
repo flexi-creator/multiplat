@@ -26,8 +26,14 @@ dependencies:
   provider: ^4.3.2+2
   get_it: ^5.0.1
   http: ^0.12.2
-  charts_flutter: ^0.9.0
-  shared_preferences: ^0.5.12
+  charts_flutter: ^0.11.0
+  shared_preferences: ^2.0.6
+
+dependency_overrides:
+ charts_flutter:
+    git:
+      url: https://github.com/google/charts
+      path: charts_flutter
 
 dev_dependencies:
   flutter_test:
