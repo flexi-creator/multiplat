@@ -9,7 +9,7 @@ import 'package:multiplat/ui/view/items_view.dart';
 
 const String initialRoute = "login";
 
-class MultiplatRouter {
+class MultiPlatRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case 'home':

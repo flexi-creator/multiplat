@@ -8,7 +8,8 @@ class DataItemService {
   // change this value to true to load random data rather than from API endpoint
   static const USE_RANDOM_DATA = false;
 
-  static const API_ENDPOINT = 'https://my-json-server.typicode.com/flexi-creator/multiplat_db/contributors';
+  static const API_ENDPOINT =
+      'https://my-json-server.typicode.com/flexi-creator/multiplat_db/contributors';
 
   List<DataItem> _items = [];
 
@@ -75,8 +76,8 @@ class DataItemService {
 
   Future<List<DataItem>> getServerData() async {
     print('Fetching data from server $API_ENDPOINT');
-    final response = await http.get('$API_ENDPOINT');
-    if (response.statusCode == 200 && response.contentLength > 0) {
+    final response = await http.get(Uri.parse('$API_ENDPOINT'));
+    if (response.statusCode == 200 && response.contentLength! > 0) {
       return DataItem.fromJsonResponse(response.body);
     }
 
@@ -89,7 +90,7 @@ class DataItemService {
     // This is provided in case the end point stops working for any reason.
     _nextValues = [0, 0, 0];
     // async so that a http call can be substituted
-    final items = List<DataItem>();
+    final items = <DataItem>[];
 
     // This example creates random data locally. This is where you would replace with code to read data
     // from an API returning json
@@ -99,24 +100,24 @@ class DataItemService {
       var imageUrl = 'https://i.pravatar.cc/200?img=${i + 7}';
 
       final historyData1 = [
-        new HistoryItem(0, random.nextInt(100)),
-        new HistoryItem(1, random.nextInt(100)),
-        new HistoryItem(2, random.nextInt(100)),
-        new HistoryItem(3, random.nextInt(100)),
+        HistoryItem(0, random.nextInt(100)),
+        HistoryItem(1, random.nextInt(100)),
+        HistoryItem(2, random.nextInt(100)),
+        HistoryItem(3, random.nextInt(100)),
       ];
 
       final historyData2 = [
-        new HistoryItem(0, (historyData1[0].historicalValue * 0.7).toInt()),
-        new HistoryItem(1, (historyData1[1].historicalValue * 0.7).toInt()),
-        new HistoryItem(2, (historyData1[2].historicalValue * 0.6).toInt()),
-        new HistoryItem(3, (historyData1[3].historicalValue * 0.5).toInt()),
+        HistoryItem(0, (historyData1[0].historicalValue * 0.7).toInt()),
+        HistoryItem(1, (historyData1[1].historicalValue * 0.7).toInt()),
+        HistoryItem(2, (historyData1[2].historicalValue * 0.6).toInt()),
+        HistoryItem(3, (historyData1[3].historicalValue * 0.5).toInt()),
       ];
 
       final historyData3 = [
-        new HistoryItem(0, (historyData2[0].historicalValue * 0.7).toInt()),
-        new HistoryItem(1, (historyData2[1].historicalValue * 0.5).toInt()),
-        new HistoryItem(2, (historyData2[2].historicalValue * 0.8).toInt()),
-        new HistoryItem(3, (historyData2[3].historicalValue * 0.9).toInt()),
+        HistoryItem(0, (historyData2[0].historicalValue * 0.7).toInt()),
+        HistoryItem(1, (historyData2[1].historicalValue * 0.5).toInt()),
+        HistoryItem(2, (historyData2[2].historicalValue * 0.8).toInt()),
+        HistoryItem(3, (historyData2[3].historicalValue * 0.9).toInt()),
       ];
 
       final histories = [
@@ -129,9 +130,10 @@ class DataItemService {
 
       final groupColor = _groupColors[i % 4];
 
-      items.add(DataItem(_title(), _description(), i * 7.5, imageUrl, bio, groupColor, histories));
+      items.add(DataItem(i, _title(), _description(), i * 7.5, imageUrl, bio,
+          groupColor, histories));
     }
-    return items;
+    return Future.value(items);
   }
 
   String _title() {
@@ -145,7 +147,7 @@ class DataItemService {
   int _nextValue(int which) {
     // Don't randomise the values so that the names will always be in order between runs,
     // to demonstrate shared_prefs at work.
-    int maxVal;
+    int maxVal = 0;
     if (which == 0) {
       maxVal = _firstNames.length;
     } else if (which == 1) {

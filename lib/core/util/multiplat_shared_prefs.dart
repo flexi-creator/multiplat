@@ -1,15 +1,15 @@
 import 'dart:io';
 
-
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MultiplatSharedPrefs {
-  static final bool _useFileSystem = false; //!kIsWeb && (Platform.isWindows);  // all platforms now support shared preferences!
+  static final bool _useFileSystem =
+      !kIsWeb && (Platform.isWindows || Platform.isLinux);
 
   static const String _selected_index_key = "selectedIndex";
   static const _prefsFile = 'multiplat_sharedprefs.txt';
-  static String _prefsFullPath;
+  static String _prefsFullPath = '';
 
   Future<int> getSelectedItemIndex() async {
     if (_useFileSystem) {
@@ -36,7 +36,7 @@ class MultiplatSharedPrefs {
       final file = File(_getFullPath());
       if (file.existsSync()) {
         final str = file.readAsStringSync();
-        if (str != null && str.isNotEmpty) {
+        if (str.isNotEmpty) {
           return int.parse(str);
         }
       }
@@ -61,10 +61,10 @@ class MultiplatSharedPrefs {
   }
 
   String _getFullPath() {
-    if (_prefsFullPath == null) {
-      _prefsFullPath = Directory.systemTemp.path + (Platform.isWindows ? '\\' : '/') + _prefsFile;
-      print('shared prefs file is $_prefsFullPath');
-    }
+    _prefsFullPath = Directory.systemTemp.path +
+        (Platform.isWindows ? '\\' : '/') +
+        _prefsFile;
+    print('shared prefs file is $_prefsFullPath');
     return _prefsFullPath;
   }
 }

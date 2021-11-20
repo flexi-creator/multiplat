@@ -7,13 +7,14 @@ import 'package:multiplat/core/viewmodel/base_viewmodel.dart';
 import 'package:multiplat/locator.dart';
 
 class ChartViewModel extends BaseViewModel {
-  PaneInteractionService _paneInteractionService = locator<PaneInteractionService>();
+  PaneInteractionService _paneInteractionService =
+      locator<PaneInteractionService>();
 
   void init() {
     _paneInteractionService.addItemChangedListener(_selectedItemChanged);
   }
 
-  DataItem getSelectedItem() {
+  DataItem? getSelectedItem() {
     return _paneInteractionService.getSelectedItem();
   }
 
@@ -30,11 +31,11 @@ class ChartViewModel extends BaseViewModel {
   List<charts.Series<HistoryItem, int>> getChartData() {
     final dataItem = getSelectedItem();
 
-    if ((dataItem?.histories?.length ?? 0) != 3) {
+    if ((dataItem?.histories.length ?? 0) != 3) {
       return [];
     }
 
-    final histories = dataItem.histories;
+    final histories = dataItem?.histories ?? [];
 
     return [
       new charts.Series<HistoryItem, int>(
@@ -55,7 +56,8 @@ class ChartViewModel extends BaseViewModel {
           id: 'Current',
           colorFn: (_, __) => charts.ColorUtil.fromDartColor(Color(0xff558833)),
           domainFn: (HistoryItem itemHistory, _) => itemHistory.year,
-          measureFn: (HistoryItem itemHistory, _) => itemHistory.historicalValue,
+          measureFn: (HistoryItem itemHistory, _) =>
+              itemHistory.historicalValue,
           data: histories[0]),
     ];
   }

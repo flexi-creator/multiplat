@@ -4,13 +4,14 @@ import 'package:multiplat/core/viewmodel/base_viewmodel.dart';
 import 'package:multiplat/locator.dart';
 
 class ItemDetailViewModel extends BaseViewModel {
-  PaneInteractionService _paneInteractionService = locator<PaneInteractionService>();
+  PaneInteractionService _paneInteractionService =
+      locator<PaneInteractionService>();
 
   void init() {
     _paneInteractionService.addItemChangedListener(_selectedItemChanged);
   }
 
-  DataItem getSelectedItem() {
+  DataItem? getSelectedItem() {
     return _paneInteractionService.getSelectedItem();
   }
 

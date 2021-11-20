@@ -28,11 +28,16 @@ class _ItemsViewState extends State<ItemsView> {
       onModelReady: (model) => model.getData(),
       builder: (context, model, child) => isCupertino()
           ? CupertinoPageScaffold(
-              navigationBar: combinedView ? null : CupertinoNavigationBar(middle: Text('Top contributors')),
+              navigationBar: combinedView
+                  ? null
+                  : const CupertinoNavigationBar(
+                      middle: Text('Top contributors')),
               child: _listItems(model),
             )
           : Scaffold(
-              appBar: combinedView ? null : AppBar(title: Text('Top contributors')),
+              appBar: combinedView
+                  ? null
+                  : AppBar(title: const Text('Top contributors')),
               body: _listItems(model),
             ),
     );
@@ -40,15 +45,18 @@ class _ItemsViewState extends State<ItemsView> {
 
   Container _listItems(ItemsViewModel model) {
     return Container(
-      color: Color(0xffddddff),
+      color: const Color(0xffddddff),
       child: Stack(children: [
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             combinedView
                 ? Padding(
-                    padding: EdgeInsets.only(top: !kIsWeb && (Platform.isIOS || Platform.isAndroid) ? 30.0 : 10.0),
-                    child: Text(
+                    padding: EdgeInsets.only(
+                        top: !kIsWeb && (Platform.isIOS || Platform.isAndroid)
+                            ? 30.0
+                            : 10.0),
+                    child: const Text(
                       'Top contributors',
                       style: TextStyle(fontWeight: FontWeight.bold),
                       textScaleFactor: 1.2,
@@ -58,7 +66,8 @@ class _ItemsViewState extends State<ItemsView> {
             Expanded(
               child: ListView.builder(
                 itemCount: model.getItemCount(),
-                itemBuilder: (BuildContext itemContext, int index) => _buildItem(itemContext, model, index),
+                itemBuilder: (BuildContext itemContext, int index) =>
+                    _buildItem(itemContext, model, index),
               ),
             ),
           ],
@@ -68,7 +77,9 @@ class _ItemsViewState extends State<ItemsView> {
                 child: SizedBox(
                     height: 50,
                     width: 50,
-                    child: isCupertino() ? CupertinoActivityIndicator() : CircularProgressIndicator()),
+                    child: isCupertino()
+                        ? const CupertinoActivityIndicator()
+                        : const CircularProgressIndicator()),
               )
             : Container(),
       ]),
@@ -78,7 +89,7 @@ class _ItemsViewState extends State<ItemsView> {
   Widget _buildItem(BuildContext itemContext, ItemsViewModel model, int index) {
     final item = model.getItemAt(index);
     return Card(
-        margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
+        margin: const EdgeInsets.fromLTRB(15, 10, 15, 10),
         color: Color(item.groupColor),
         child: InkWell(
           splashColor: Colors.blueGrey.withAlpha(30),
@@ -90,26 +101,26 @@ class _ItemsViewState extends State<ItemsView> {
             child: Row(
               children: <Widget>[
                 Hero(
-                  tag: 'heroImage${item.title}',
+                  tag: 'heroImage${item.title}${item.id}',
                   child: CircleAvatar(
                     radius: 35,
-                    backgroundColor: Color(0x1f000000),
+                    backgroundColor: const Color(0x1f000000),
                     backgroundImage: NetworkImage(
                       item.imageUrl,
                     ),
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(left: 10)),
+                const Padding(padding: EdgeInsets.only(left: 10)),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         item.title,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                         textScaleFactor: 1.2,
                       ),
-                      Padding(padding: EdgeInsets.only(top: 10)),
+                      const Padding(padding: EdgeInsets.only(top: 10)),
                       Text(item.description),
                     ],
                   ),

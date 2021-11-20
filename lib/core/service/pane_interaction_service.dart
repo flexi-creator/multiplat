@@ -19,7 +19,7 @@ class PaneInteractionService {
     _selectedItemNotifier.value = index;
   }
 
-  DataItem getSelectedItem() {
+  DataItem? getSelectedItem() {
     final index = _selectedItemNotifier.value;
     if (index < _items.length) {
       return _items[index];
@@ -27,11 +27,11 @@ class PaneInteractionService {
     return null;
   }
 
-  void addItemChangedListener(Function listener) {
+  void addItemChangedListener(VoidCallback listener) {
     _selectedItemNotifier.addListener(listener);
   }
 
-  void removeItemChangedListener(Function listener) {
+  void removeItemChangedListener(VoidCallback listener) {
     _selectedItemNotifier.removeListener(listener);
   }
 }

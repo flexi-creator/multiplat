@@ -29,10 +29,11 @@ class _ChartViewState extends State<ChartView> {
 
   Widget _buildContent(ChartViewModel model) {
     final dataItem = model.getSelectedItem();
-    final title = dataItem != null ? 'Contributions for ${dataItem.title}' : '';
+    final title = 'Contributions for ${dataItem?.title ?? ''}';
     if (isCupertino()) {
       return CupertinoPageScaffold(
-        navigationBar: combinedView ? null : CupertinoNavigationBar(middle: Text(title)),
+        navigationBar:
+            combinedView ? null : CupertinoNavigationBar(middle: Text(title)),
         child: _safeArea(title, model),
       );
     }
@@ -54,7 +55,8 @@ class _ChartViewState extends State<ChartView> {
     );
   }
 
-  Widget _chart(String title, BoxConstraints constraints, ChartViewModel model) {
+  Widget _chart(
+      String title, BoxConstraints constraints, ChartViewModel model) {
     return Container(
       padding: EdgeInsets.all(20),
       color: Color(0xffffeeee),
@@ -63,13 +65,16 @@ class _ChartViewState extends State<ChartView> {
           combinedView
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(title, style: TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.2),
+                  child: Text(title,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      textScaleFactor: 1.2),
                 )
               : Container(),
           SizedBox(
               height: constraints.constrainHeight() - 80,
               width: constraints.constrainWidth(),
-              child: CombinedDataItemsChart(model.getChartData())),
+              child:
+                  CombinedDataItemsChart(model.getChartData(), animate: true)),
         ],
       ),
     );
@@ -77,10 +82,10 @@ class _ChartViewState extends State<ChartView> {
 }
 
 class CombinedDataItemsChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
+  final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  CombinedDataItemsChart(this.seriesList, {this.animate});
+  CombinedDataItemsChart(this.seriesList, {required this.animate});
 
   @override
   Widget build(BuildContext context) {

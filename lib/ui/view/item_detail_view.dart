@@ -29,6 +29,9 @@ class _ItemDetailViewState extends State<ItemDetailView> {
 
   Widget _buildContent(ItemDetailViewModel model) {
     final dataItem = model.getSelectedItem();
+    if (dataItem == null) {
+      return Container(color: Color(0xffddffdd));
+    }
     if (isCupertino()) {
       return CupertinoPageScaffold(
         navigationBar: combinedView
@@ -50,60 +53,59 @@ class _ItemDetailViewState extends State<ItemDetailView> {
   }
 
   Widget _body(DataItem dataItem) {
-    if (dataItem != null) {
-      return Container(
-          padding: EdgeInsets.all(5),
-          color: Color(0xffddffdd),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child: ListView(children: [
-              Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Hero(
-                  tag: 'heroImage${dataItem.title}',
-                  child: CircleAvatar(
-                    backgroundColor: Color(0x1f000000),
-                    radius: 75,
-                    backgroundImage: NetworkImage(
-                      dataItem.imageUrl,
-                    ),
+    return Container(
+        padding: EdgeInsets.all(5),
+        color: Color(0xffddffdd),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          child: ListView(children: [
+            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Hero(
+                tag: 'heroImageD${dataItem.title}${dataItem.id}',
+                child: CircleAvatar(
+                  backgroundColor: Color(0x1f000000),
+                  radius: 75,
+                  backgroundImage: NetworkImage(
+                    dataItem.imageUrl,
                   ),
                 ),
-                Padding(padding: EdgeInsets.only(left: 10)),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _title(dataItem),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(dataItem.description, style: TextStyle(fontWeight: FontWeight.bold)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text('Rating: ${dataItem.value}'),
-                      ),
-                    ],
-                  ),
-                ),
-              ]),
-              Padding(
-                padding: const EdgeInsets.only(top: 20, bottom: 20),
-                child: Text(dataItem.bio),
               ),
-              _chartNavButton(),
+              Padding(padding: EdgeInsets.only(left: 10)),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _title(dataItem),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(dataItem.description,
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text('Rating: ${dataItem.value}'),
+                    ),
+                  ],
+                ),
+              ),
             ]),
-          ));
-    } else {
-      return Container(color: Color(0xffddffdd));
-    }
+            Padding(
+              padding: const EdgeInsets.only(top: 20, bottom: 20),
+              child: Text(dataItem.bio),
+            ),
+            _chartNavButton(),
+          ]),
+        ));
   }
 
   Widget _title(DataItem dataItem) {
     if (combinedView) {
       return Padding(
         padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-        child: Text(dataItem.title, style: TextStyle(fontWeight: FontWeight.bold), textScaleFactor: 1.2),
+        child: Text(dataItem.title,
+            style: TextStyle(fontWeight: FontWeight.bold),
+            textScaleFactor: 1.2),
       );
     } else {
       return Container();
