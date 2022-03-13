@@ -8,17 +8,13 @@ import 'package:multiplat/ui/view/base_view.dart';
 class ItemDetailView extends StatefulWidget {
   final bool combinedView;
 
-  ItemDetailView({this.combinedView = false});
+  const ItemDetailView({Key? key, this.combinedView = false}) : super(key: key);
 
   @override
-  _ItemDetailViewState createState() => _ItemDetailViewState(combinedView);
+  _ItemDetailViewState createState() => _ItemDetailViewState();
 }
 
 class _ItemDetailViewState extends State<ItemDetailView> {
-  final bool combinedView;
-
-  _ItemDetailViewState(this.combinedView);
-
   @override
   Widget build(BuildContext context) {
     return BaseView<ItemDetailViewModel>(
@@ -30,11 +26,11 @@ class _ItemDetailViewState extends State<ItemDetailView> {
   Widget _buildContent(ItemDetailViewModel model) {
     final dataItem = model.getSelectedItem();
     if (dataItem == null) {
-      return Container(color: Color(0xffddffdd));
+      return Container(color: const Color(0xffddffdd));
     }
     if (isCupertino()) {
       return CupertinoPageScaffold(
-        navigationBar: combinedView
+        navigationBar: widget.combinedView
             ? null
             : CupertinoNavigationBar(
                 middle: Text(dataItem.title),
@@ -43,7 +39,7 @@ class _ItemDetailViewState extends State<ItemDetailView> {
       );
     }
     return Scaffold(
-      appBar: combinedView
+      appBar: widget.combinedView
           ? null
           : AppBar(
               title: Text(dataItem.title),
@@ -54,23 +50,23 @@ class _ItemDetailViewState extends State<ItemDetailView> {
 
   Widget _body(DataItem dataItem) {
     return Container(
-        padding: EdgeInsets.all(5),
-        color: Color(0xffddffdd),
+        padding: const EdgeInsets.all(5),
+        color: const Color(0xffddffdd),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-          child: ListView(children: [
+          child: ListView(controller: ScrollController(), children: [
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Hero(
                 tag: 'heroImageD${dataItem.title}${dataItem.id}',
                 child: CircleAvatar(
-                  backgroundColor: Color(0x1f000000),
+                  backgroundColor: const Color(0x1f000000),
                   radius: 75,
                   backgroundImage: NetworkImage(
                     dataItem.imageUrl,
                   ),
                 ),
               ),
-              Padding(padding: EdgeInsets.only(left: 10)),
+              const Padding(padding: EdgeInsets.only(left: 10)),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +76,7 @@ class _ItemDetailViewState extends State<ItemDetailView> {
                     Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(dataItem.description,
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10),
@@ -100,11 +96,11 @@ class _ItemDetailViewState extends State<ItemDetailView> {
   }
 
   Widget _title(DataItem dataItem) {
-    if (combinedView) {
+    if (widget.combinedView) {
       return Padding(
         padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
         child: Text(dataItem.title,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
             textScaleFactor: 1.2),
       );
     } else {
@@ -113,12 +109,12 @@ class _ItemDetailViewState extends State<ItemDetailView> {
   }
 
   Widget _chartNavButton() {
-    if (combinedView) {
+    if (widget.combinedView) {
       return Container();
     } else {
       return RaisedButton(
         color: Colors.blueGrey,
-        child: Text(
+        child: const Text(
           'Show contributions',
           style: TextStyle(color: Colors.white),
         ),

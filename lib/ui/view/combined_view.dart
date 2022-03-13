@@ -22,31 +22,32 @@ class CombinedView extends StatelessWidget {
       return Container(
         width: width,
         height: height,
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Flexible(
-            flex: 1,
-            child: Container(
-              child: ItemsView(combinedView: true),
-            ),
-          ),
-          Flexible(
-            flex: 2,
-            child: Column(
-              children: [
-                Flexible(
-                  flex: 2,
-                  child: ItemDetailView(combinedView: true),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Flexible(
+                flex: 1,
+                child: ItemsView(combinedView: true),
+              ),
+              Flexible(
+                flex: 2,
+                child: Column(
+                  children: [
+                    Flexible(
+                      flex: 2,
+                      child: ItemDetailView(combinedView: true),
+                    ),
+                    Flexible(
+                      flex: 3,
+                      child: ChartView(combinedView: true),
+                    ),
+                  ],
                 ),
-                Flexible(
-                  flex: 3,
-                  child: ChartView(combinedView: true),
-                ),
-              ],
-            ),
-          ),
-        ]),
+              ),
+            ]),
       );
     }
-    return ItemsView();
+    return const ItemsView();
   }
 }
