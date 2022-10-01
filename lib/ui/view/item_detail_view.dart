@@ -112,8 +112,8 @@ class _ItemDetailViewState extends State<ItemDetailView> {
     if (widget.combinedView) {
       return Container();
     } else {
-      return RaisedButton(
-        color: Colors.blueGrey,
+      return ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
         child: const Text(
           'Show contributions',
           style: TextStyle(color: Colors.white),
