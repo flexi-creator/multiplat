@@ -11,31 +11,27 @@ import 'package:multiplat/ui/view/base_view.dart';
 class ItemsView extends StatefulWidget {
   final bool combinedView;
 
-  ItemsView({this.combinedView = false});
+  const ItemsView({Key? key, this.combinedView = false}) : super(key: key);
 
   @override
-  _ItemsViewState createState() => _ItemsViewState(combinedView);
+  _ItemsViewState createState() => _ItemsViewState();
 }
 
 class _ItemsViewState extends State<ItemsView> {
-  final bool combinedView;
-
-  _ItemsViewState(this.combinedView);
-
   @override
   Widget build(BuildContext context) {
     return BaseView<ItemsViewModel>(
       onModelReady: (model) => model.getData(),
       builder: (context, model, child) => isCupertino()
           ? CupertinoPageScaffold(
-              navigationBar: combinedView
+              navigationBar: widget.combinedView
                   ? null
                   : const CupertinoNavigationBar(
                       middle: Text('Top contributors')),
               child: _listItems(model),
             )
           : Scaffold(
-              appBar: combinedView
+              appBar: widget.combinedView
                   ? null
                   : AppBar(title: const Text('Top contributors')),
               body: _listItems(model),
@@ -50,7 +46,7 @@ class _ItemsViewState extends State<ItemsView> {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            combinedView
+            widget.combinedView
                 ? Padding(
                     padding: EdgeInsets.only(
                         top: !kIsWeb && (Platform.isIOS || Platform.isAndroid)
@@ -65,6 +61,7 @@ class _ItemsViewState extends State<ItemsView> {
                 : Container(),
             Expanded(
               child: ListView.builder(
+                controller: ScrollController(),
                 itemCount: model.getItemCount(),
                 itemBuilder: (BuildContext itemContext, int index) =>
                     _buildItem(itemContext, model, index),
@@ -133,7 +130,7 @@ class _ItemsViewState extends State<ItemsView> {
 
   void _itemTapped(ItemsViewModel model, int index) {
     model.itemSelected(index);
-    if (combinedView) {
+    if (widget.combinedView) {
     } else {
       Navigator.pushNamed(context, "detail");
     }
