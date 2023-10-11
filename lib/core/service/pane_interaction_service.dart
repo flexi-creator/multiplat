@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:multiplat/core/model/data_item.dart';
 
 class PaneInteractionService {
-  List<DataItem> _items = [];
+  final List<DataItem> _items = [];
 
   final _selectedItemNotifier = ValueNotifier(0);
 

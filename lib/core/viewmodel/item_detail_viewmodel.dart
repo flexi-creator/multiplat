@@ -4,7 +4,7 @@ import 'package:multiplat/core/viewmodel/base_viewmodel.dart';
 import 'package:multiplat/locator.dart';
 
 class ItemDetailViewModel extends BaseViewModel {
-  PaneInteractionService _paneInteractionService =
+  final PaneInteractionService _paneInteractionService =
       locator<PaneInteractionService>();
 
   void init() {

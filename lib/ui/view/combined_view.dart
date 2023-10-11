@@ -7,6 +7,8 @@ class CombinedView extends StatelessWidget {
   static const MIN_COMBINED_WIDTH = 800;
   static const MIN_COMBINED_HEIGHT = 600;
 
+  const CombinedView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -19,14 +21,14 @@ class CombinedView extends StatelessWidget {
     final height = constraints.constrainHeight();
     // print('combined w: $width h: $height');
     if (width > MIN_COMBINED_WIDTH && height > MIN_COMBINED_HEIGHT) {
-      return Container(
+      return SizedBox(
         width: width,
         height: height,
-        child: Row(
+        child: const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Flexible(
+              Flexible(
                 flex: 1,
                 child: ItemsView(combinedView: true),
               ),

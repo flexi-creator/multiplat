@@ -9,7 +9,7 @@ class BaseView<T extends BaseViewModel> extends StatefulWidget {
   final Widget Function(BuildContext context, T model, Widget? child) builder;
   final Function(T) onModelReady;
 
-  BaseView({required this.builder, required this.onModelReady});
+  const BaseView({Key? key, required this.builder, required this.onModelReady}) : super(key: key);
 
   @override
   _BaseViewState<T> createState() => _BaseViewState<T>();

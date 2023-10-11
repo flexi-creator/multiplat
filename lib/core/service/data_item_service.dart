@@ -76,7 +76,8 @@ class DataItemService {
 
   Future<List<DataItem>> getServerData() async {
     print('Fetching data from server $API_ENDPOINT');
-    final response = await http.get(Uri.parse('$API_ENDPOINT'));
+    final response = await http.get(Uri.parse(API_ENDPOINT));
+    print('response is ${response.body}');
     if (response.statusCode == 200 && response.contentLength! > 0) {
       return DataItem.fromJsonResponse(response.body);
     }
@@ -86,7 +87,7 @@ class DataItemService {
 
   Future<List<DataItem>> getRandomData() async {
     print('Generating random data');
-    await Future.delayed(Duration(seconds: 1)); // simulate server delay
+    await Future.delayed(const Duration(seconds: 1)); // simulate server delay
     // This is provided in case the end point stops working for any reason.
     _nextValues = [0, 0, 0];
     // async so that a http call can be substituted

@@ -9,9 +9,9 @@ class ItemsViewModel extends BaseViewModel {
   ItemsViewModel({this.combinedView = false});
 
   final bool combinedView;
-  DataItemService _dataItemService = locator<DataItemService>();
-  PaneInteractionService _paneInteractionService = locator<PaneInteractionService>();
-  MultiplatSharedPrefs _appSharedPrefs = locator<MultiplatSharedPrefs>();
+  final DataItemService _dataItemService = locator<DataItemService>();
+  final PaneInteractionService _paneInteractionService = locator<PaneInteractionService>();
+  final MultiplatSharedPrefs _appSharedPrefs = locator<MultiplatSharedPrefs>();
 
   Future<void> getData() async {
     setBusy();
@@ -23,7 +23,7 @@ class ItemsViewModel extends BaseViewModel {
     // var js = jsonEncode({"contributors": items});
     // print('$js');
 
-    Future.delayed(Duration(milliseconds: 250), () {
+    Future.delayed(const Duration(milliseconds: 250), () {
       _paneInteractionService.setSelectedItemIndex(savedIndex);
       setIdle();
     });

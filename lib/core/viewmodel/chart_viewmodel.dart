@@ -7,7 +7,7 @@ import 'package:multiplat/core/viewmodel/base_viewmodel.dart';
 import 'package:multiplat/locator.dart';
 
 class ChartViewModel extends BaseViewModel {
-  PaneInteractionService _paneInteractionService =
+  final PaneInteractionService _paneInteractionService =
       locator<PaneInteractionService>();
 
   void init() {
@@ -38,23 +38,23 @@ class ChartViewModel extends BaseViewModel {
     final histories = dataItem?.histories ?? [];
 
     return [
-      new charts.Series<HistoryItem, int>(
+      charts.Series<HistoryItem, int>(
         id: 'LastMonth',
-        colorFn: (_, __) => charts.ColorUtil.fromDartColor(Color(0xff3355aa)),
+        colorFn: (_, __) => charts.ColorUtil.fromDartColor(const Color(0xff3355aa)),
         domainFn: (HistoryItem itemHistory, _) => itemHistory.year,
         measureFn: (HistoryItem itemHistory, _) => itemHistory.historicalValue,
         data: histories[2],
       )..setAttribute(charts.rendererIdKey, 'customBar'),
-      new charts.Series<HistoryItem, int>(
+      charts.Series<HistoryItem, int>(
         id: 'LastYear',
-        colorFn: (_, __) => charts.ColorUtil.fromDartColor(Color(0xff993355)),
+        colorFn: (_, __) => charts.ColorUtil.fromDartColor(const Color(0xff993355)),
         domainFn: (HistoryItem itemHistory, _) => itemHistory.year,
         measureFn: (HistoryItem itemHistory, _) => itemHistory.historicalValue,
         data: histories[1],
       )..setAttribute(charts.rendererIdKey, 'customBar'),
-      new charts.Series<HistoryItem, int>(
+      charts.Series<HistoryItem, int>(
           id: 'Current',
-          colorFn: (_, __) => charts.ColorUtil.fromDartColor(Color(0xff558833)),
+          colorFn: (_, __) => charts.ColorUtil.fromDartColor(const Color(0xff558833)),
           domainFn: (HistoryItem itemHistory, _) => itemHistory.year,
           measureFn: (HistoryItem itemHistory, _) =>
               itemHistory.historicalValue,

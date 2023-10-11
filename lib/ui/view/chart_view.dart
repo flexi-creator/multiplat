@@ -8,7 +8,7 @@ import 'package:multiplat/ui/view/base_view.dart';
 class ChartView extends StatefulWidget {
   final bool combinedView;
 
-  ChartView({this.combinedView = false});
+  const ChartView({Key? key, this.combinedView = false}) : super(key: key);
 
   @override
   _ChartViewState createState() => _ChartViewState(combinedView);
@@ -58,15 +58,15 @@ class _ChartViewState extends State<ChartView> {
   Widget _chart(
       String title, BoxConstraints constraints, ChartViewModel model) {
     return Container(
-      padding: EdgeInsets.all(20),
-      color: Color(0xffffeeee),
+      padding: const EdgeInsets.all(20),
+      color: const Color(0xffffeeee),
       child: Column(
         children: <Widget>[
           combinedView
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(title,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                       textScaleFactor: 1.2),
                 )
               : Container(),
@@ -85,18 +85,18 @@ class CombinedDataItemsChart extends StatelessWidget {
   final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
 
-  CombinedDataItemsChart(this.seriesList, {required this.animate});
+  const CombinedDataItemsChart(this.seriesList, {Key? key, required this.animate}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new charts.NumericComboChart(seriesList,
+    return charts.NumericComboChart(seriesList,
         animate: animate,
         // Configure the default renderer as a line renderer. This will be used
         // for any series that does not define a rendererIdKey.
-        defaultRenderer: new charts.LineRendererConfig(),
+        defaultRenderer: charts.LineRendererConfig(),
         // Custom renderer configuration for the bar series.
         customSeriesRenderers: [
-          new charts.BarRendererConfig(
+          charts.BarRendererConfig(
               // ID used to link series to this renderer.
               customRendererId: 'customBar')
         ]);

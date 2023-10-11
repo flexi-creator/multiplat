@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:multiplat/core/util/platform_util.dart';
 import 'package:multiplat/ui/view/chart_view.dart';
 import 'package:multiplat/ui/view/combined_view.dart';
@@ -13,13 +12,13 @@ class MultiPlatRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case 'home':
-        return _platformRoute(() => ItemsView());
+        return _platformRoute(() => const ItemsView());
       case 'chart':
-        return _platformRoute(() => ChartView());
+        return _platformRoute(() => const ChartView());
       case 'detail':
-        return _platformRoute(() => ItemDetailView());
+        return _platformRoute(() => const ItemDetailView());
       case 'combined':
-        return _platformRoute(() => CombinedView());
+        return _platformRoute(() => const CombinedView());
       default:
         return _platformRoute(() => Scaffold(
               body: Center(
