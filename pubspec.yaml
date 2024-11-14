@@ -5,22 +5,22 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ^3.4.3
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.8
   provider: ^6.0.1
-  get_it: ^7.2.0
-  http: ^0.13.4
-  charts_flutter: ^0.12.0
+  get_it: ^8.0.2
+  http: ^1.2.2
+  nimble_charts: ^0.4.0-beta
   shared_preferences: ^2.0.9
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true

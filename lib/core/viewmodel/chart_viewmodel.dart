@@ -1,4 +1,4 @@
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:nimble_charts/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:multiplat/core/model/data_item.dart';
 import 'package:multiplat/core/model/history_item.dart';
